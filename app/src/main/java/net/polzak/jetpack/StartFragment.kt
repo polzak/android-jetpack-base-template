@@ -6,23 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import net.polzak.jetpack.databinding.FragmentStartBinding
 
 class StartFragment: Fragment() {
 
-    private var clicked = false
+    private lateinit var viewModel: StartViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         val binding = DataBindingUtil.inflate<FragmentStartBinding>(inflater, R.layout.fragment_start, container, false)
 
-        binding.button1.setOnClickListener {
-            if (clicked) {
-                binding.textView1.text = ""
-            } else {
-                binding.textView1.text = "I am bound!"
-            }
+        viewModel = ViewModelProviders.of(this).get(StartViewModel::class.java)
 
-            clicked = !clicked
+        binding.scoreboard.text = viewModel.score.toString()
+
+        binding.minusButton.setOnClickListener {
+            viewModel.subtractPoint()
+            binding.scoreboard.text = viewModel.score.toString()
+        }
+
+
+        binding.plusButton.setOnClickListener {
+            viewModel.addPoint()
+            binding.scoreboard.text = viewModel.score.toString()
         }
 
         return binding.root
