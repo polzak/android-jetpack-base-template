@@ -19,7 +19,7 @@ class StartFragment: Fragment() {
             if (clicked) {
                 binding.textView1.text = ""
             } else {
-                binding.textView1.text = "I am binded!"
+                binding.textView1.text = "I am bound!"
             }
 
             clicked = !clicked
