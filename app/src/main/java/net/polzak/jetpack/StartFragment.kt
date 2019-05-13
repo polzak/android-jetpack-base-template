@@ -20,7 +20,6 @@ class StartFragment: Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(StartViewModel::class.java)
 
-
         viewModel.score.observe(this, Observer { newScore ->
             binding.scoreboard.text = newScore.toString()
         })

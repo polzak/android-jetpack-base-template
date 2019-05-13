@@ -1,22 +1,25 @@
 package net.polzak.jetpack
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class StartViewModel: ViewModel() {
 
-    var score = MutableLiveData<Int>()
+    private val _score = MutableLiveData<Int>()
+    val score: LiveData<Int>
+        get() = _score
 
     init {
-        score.value = 0
+        _score.value = 0
     }
 
     fun addPoint() {
-        score.value = (score.value)?.plus(1)
+        _score.value = (_score.value)?.plus(1)
     }
 
     fun subtractPoint() {
-        score.value = (score.value)?.minus(1)
+        _score.value = (_score.value)?.minus(1)
     }
 
 }
