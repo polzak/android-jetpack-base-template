@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import net.polzak.jetpack.databinding.FragmentStartBinding
 
@@ -19,17 +20,17 @@ class StartFragment: Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(StartViewModel::class.java)
 
-        binding.scoreboard.text = viewModel.score.toString()
+
+        viewModel.score.observe(this, Observer { newScore ->
+            binding.scoreboard.text = newScore.toString()
+        })
 
         binding.minusButton.setOnClickListener {
             viewModel.subtractPoint()
-            binding.scoreboard.text = viewModel.score.toString()
         }
-
 
         binding.plusButton.setOnClickListener {
             viewModel.addPoint()
-            binding.scoreboard.text = viewModel.score.toString()
         }
 
         return binding.root
